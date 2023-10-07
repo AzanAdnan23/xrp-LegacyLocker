@@ -1,0 +1,54 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.4;
+
+contract DigitalWill {
+    struct Beneficiary {
+        address beneficiaryAddress;
+        uint256 share; // Share in percentage (e.g., 10% = 10)
+        bool hasWithdrawn;
+    }
+
+    uint256 public lastAction;
+    address public owner;
+    Beneficiary[] public beneficiaries;
+
+    constructor(address[] memory _beneficiaries, uint256[] memory _shares) payable {
+        require(_beneficiaries.length == _shares.length, "Invalid input length");
+        require(_beneficiaries.length > 0, "At least one beneficiary is required");
+
+        owner = msg.sender;
+        lastAction = block.timestamp;
+
+        uint256 totalShares = 0;
+        for (uint256 i = 0; i < _beneficiaries.length; i++) {
+            require(_beneficiaries[i] != address(0), "Invalid beneficiary address");
+            totalShares += _shares[i];
+            beneficiaries.push(Beneficiary({
+                beneficiaryAddress: _beneficiaries[i],
+                share: _shares[i],
+                hasWithdrawn: false
+            }));
+        }
+        require(totalShares == 100, "Total shares must equal 100%");
+    }
+
+    function withdraw() external {
+        require(msg.sender == owner, "Only owner can call this function");
+        require((block.timestamp - lastAction) >= 52 weeks, "Withdrawal not allowed yet");
+
+        for (uint256 i = 0; i < beneficiaries.length; i++) {
+            Beneficiary storage beneficiary = beneficiaries[i];
+            if (!beneficiary.hasWithdrawn) {
+                uint256 amountToWithdraw = (address(this).balance * beneficiary.share) / 100;
+                beneficiary.hasWithdrawn = true;
+                (bool success, ) = beneficiary.beneficiaryAddress.call{value: amountToWithdraw}("");
+                require(success, "Transfer failed");
+            }
+        }
+    }
+
+    function ping() external {
+        require(msg.sender == owner, "Only owner can call this function");
+        lastAction = block.timestamp;
+    }
+}
