@@ -8,6 +8,9 @@ contract DigitalWill {
         bool hasWithdrawn;
     }
 
+
+    
+
     uint256 public lastAction;
     address public owner;
     Beneficiary[] public beneficiaries;
