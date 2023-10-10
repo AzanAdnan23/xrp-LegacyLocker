@@ -7,10 +7,6 @@ contract DigitalWill {
         uint256 share; // Share in percentage (e.g., 10% = 10)
         bool hasWithdrawn;
     }
-
-
-    
-
     uint256 public lastAction;
     address public owner;
     Beneficiary[] public beneficiaries;

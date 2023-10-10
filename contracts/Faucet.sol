@@ -8,7 +8,7 @@ contract Faucet {
     require(_amount <= 100000000000000000);
     payable(msg.sender).transfer(_amount);
   }
-
   // fallback function
   receive() external payable {}
+
 }
