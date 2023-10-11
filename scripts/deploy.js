@@ -1,5 +1,5 @@
 async function main() {
-  const token = await ethers.deployContract("Faucet");
+  const token = await ethers.deployContract("Switch");
 
   console.log("Faucet address:", await token.getAddress());
 }
