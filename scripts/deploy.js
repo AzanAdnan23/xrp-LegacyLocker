@@ -1,7 +1,13 @@
 async function main() {
-  const token = await ethers.deployContract("Switch");
+  const [deployer] = await ethers.getSigners();
 
-  console.log("Faucet address:", await token.getAddress());
+  console.log("Deploying contracts with the account:", deployer.address);
+
+  const contract = await ethers.deployContract("DigitalWill");
+
+  await contract.waitForDeployment();
+
+  console.log("Contract address:", contract.address);
 }
 
 main()
