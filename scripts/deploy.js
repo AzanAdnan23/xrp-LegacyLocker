@@ -7,7 +7,7 @@ async function main() {
 
   await contract.waitForDeployment();
 
-  console.log("Contract address:", contract.address);
+  console.log("Contract address:", contract.target);
 }
 
 main()

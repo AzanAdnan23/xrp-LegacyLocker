@@ -1,16 +1,13 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import WalletCard from './WalletCard';
+import { useState } from "react";
+import "./App.css";
+import WalletCard from "./WalletCard";
+import AddUsers from "./AddUsers";
 function App() {
-  
-
   return (
     <>
-        <WalletCard/>
+      <AddUsers />
     </>
-  )
+  );
 }
-
-export default App
+// <WalletCard />
+export default App;

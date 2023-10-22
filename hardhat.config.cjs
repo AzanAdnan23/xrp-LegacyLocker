@@ -3,6 +3,9 @@ require("@nomicfoundation/hardhat-toolbox");
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.19",
+  paths: {
+    artifacts: "./src/artifacts",
+  },
   networks: {
     evmSidechain: {
       url: 'https://rpc-evm-sidechain.xrpl.org',
