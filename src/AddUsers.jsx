@@ -23,7 +23,7 @@ function AddUsers() {
       DigitalWill.abi,
       signer
     );
-    const tx = await digitalWill.adduser(recipient, { value: amount });
+    const tx = await digitalWill.adduser(recipient, { value:  ethers.utils.parseEther(amount) });
     await tx.wait();
 
     alert(`Recipient: ${recipient}, Value: ${amount}`);
