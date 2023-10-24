@@ -1,116 +1,93 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.4;
+pragma solidity 0.8.19;
+
+// TODO: add share functionality means if there are more then 1 benificiary
+// TODO: genrate events
 
 contract DigitalWill {
-    
-    struct Beneficiary {
-        address beneficiaryAddress;
-        uint256 share; // Share in percentage (e.g., 10% = 10)
-        bool hasWithdrawn;
+    struct UserInfo {
+        address user;
+        address recipient;
+        uint lastAction;
+        uint256 balance;
     }
-    uint256 public lastAction;
-    address public owner;
-    Beneficiary[] public beneficiaries;
+    mapping(address => UserInfo) public users;
 
-    constructor(address[] memory _beneficiaries, uint256[] memory _shares) payable {
-        require(_beneficiaries.length == _shares.length, "Invalid input length");
-        require(_beneficiaries.length > 0, "At least one beneficiary is required");
+    function adduser(address _recipient) external payable {
+        require(msg.value > 0, "You must send some Ether to deposit.");
+        require(users[msg.sender].user == address(0), "User already exists");
 
-        owner = msg.sender;
-        lastAction = block.timestamp;
-
-        uint256 totalShares = 0;
-        for (uint256 i = 0; i < _beneficiaries.length; i++) {
-            require(_beneficiaries[i] != address(0), "Invalid beneficiary address");
-            totalShares += _shares[i];
-            beneficiaries.push(Beneficiary({
-                beneficiaryAddress: _beneficiaries[i],
-                share: _shares[i],
-                hasWithdrawn: false
-            }));
-        }
-        require(totalShares == 100, "Total shares must equal 100%");
+        users[msg.sender] = UserInfo({
+            user: msg.sender,
+            recipient: _recipient,
+            lastAction: block.timestamp,
+            balance: msg.value
+        });
     }
 
-    function withdraw() external {
+    function withdraw(address parent) external {
+        require(users[parent].user != address(0), "User does not exist");
 
-        require((block.timestamp - lastAction) >= 52 weeks, "Withdrawal not allowed yet");
+        require(
+            users[parent].user == parent && users[parent].recipient == msg.sender,
+            "Invalid user or recipient"
+        );
 
-        for (uint256 i = 0; i < beneficiaries.length; i++) {
-            Beneficiary storage beneficiary = beneficiaries[i];
-            if (!beneficiary.hasWithdrawn) {
-                uint256 amountToWithdraw = (address(this).balance * beneficiary.share) / 100;
-                beneficiary.hasWithdrawn = true;
-                (bool success, ) = beneficiary.beneficiaryAddress.call{value: amountToWithdraw}("");
-                require(success, "Transfer failed");
-            }
-        }
+        require(
+            (block.timestamp - users[parent].lastAction) >= 52 weeks,
+            "Withdrawal not allowed yet"
+        );
+
+        (bool success, ) = users[parent].recipient.call{value: users[parent].balance }("");
+        require(success, "Transfer to recipient failed");
+
+        users[parent].balance = 0;
+
+        removeUser(parent);
+    }
+
+    // add revert transection means it will transfer the amount back to the wallet.
+    function revertToOwner() external {
+        require(
+            msg.sender == users[msg.sender].user,
+            "Only owner can call this function"
+        );
+
+        (bool success, ) = users[msg.sender].user.call{ value: users[msg.sender].balance }("");
+
+        require(success, "Transfer to recipient failed");
+
+        users[msg.sender].balance = 0;
+
+        removeUser(msg.sender);
     }
 
     function ping() external {
-        require(msg.sender == owner, "Only owner can call this function");
-        lastAction = block.timestamp;
+        require(
+            msg.sender == users[msg.sender].user,
+            "Only the user can call this function"
+        );
+        users[msg.sender].lastAction = block.timestamp;
     }
+
+    function viewUserBalance() external view returns (uint) {
+        return users[msg.sender].balance;
+    }
+
+    function viewUserRecipeint() external view returns (address) {
+        return users[msg.sender].recipient;
+    }
+
+    function viewUserLastAction() external view returns (uint) {
+        return users[msg.sender].lastAction;
+    }
+
+     function removeUser(address userAddress) internal {
+        require(users[userAddress].user != address(0), "User does not exist");
+        require( users[userAddress].balance == 0,
+            " User can't be remvoed Because User has not withdrawn yet" );
+
+        users[userAddress] = UserInfo(address(0), address(0), 0, 0);
+    }
+
 }
-
-________________________________________________________________________________
-///////////////////////////////////////////////////////////////////////////////
-
-
-
-
-async function main() {
-
-  const contractAddress = "0x..."; // The deployed contract address
-  const myContract = await hre.ethers.getContractAt("SomeContract", contractAddress);
-
-  // Now you can call the methods of your contract
-  const result = await myContract.someMethod();
-  console.log("Result:", result);
-}
-
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
-
-
-
-_------------------------------------------------------------------
-///////////////////////////////////////////////////////////////////////////////
-
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
-const hre = require("hardhat");
-
-async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
-
-  const lockedAmount = hre.ethers.parseEther("0.001");
-
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
-
-  await lock.waitForDeployment();
-
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
-}
-
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});

@@ -19,9 +19,9 @@ function AddUsers() {
 
     // Create an instance of the contract using its address and ABI
     const digitalWill = new ethers.Contract(
-      "0x2e081F2bfF46Df0050992D3AC9A39e5226f90CF2",
+      "0x5E52b19D74E513B936236120c963c37d6C85C0f6",
       DigitalWill.abi,
-      signer
+      Signer
     );
     const tx = await digitalWill.adduser(recipient, { value:  ethers.utils.parseEther(amount) });
     await tx.wait();

@@ -1,13 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-// add share functionality means if there are more then 1 benificiary
-// genrate events
+// TODO: add share functionality means if there are more then 1 recipient
 
 contract DigitalWill {
-
-    address deployer;
-
     struct UserInfo {
         address user;
         address recipient;
@@ -15,6 +11,20 @@ contract DigitalWill {
         uint256 balance;
     }
     mapping(address => UserInfo) public users;
+
+    event UserAdded(
+        address indexed user,
+        address indexed recipient,
+        uint256 balance
+    );
+    event UserRemoved(address indexed user);
+    event Withdrawn(
+        address indexed parent,
+        address indexed recipient,
+        uint256 balance
+    );
+    event RevertedToOwner(address indexed user, uint256 balance);
+    event Pinged(address indexed user);
 
     function adduser(address _recipient) external payable {
         require(msg.value > 0, "You must send some Ether to deposit.");
@@ -26,13 +36,15 @@ contract DigitalWill {
             lastAction: block.timestamp,
             balance: msg.value
         });
+        emit UserAdded(msg.sender, _recipient, msg.value);
     }
 
     function withdraw(address parent) external {
         require(users[parent].user != address(0), "User does not exist");
 
         require(
-            users[parent].user == parent && users[parent].recipient == msg.sender,
+            users[parent].user == parent &&
+                users[parent].recipient == msg.sender,
             "Invalid user or recipient"
         );
 
@@ -41,8 +53,12 @@ contract DigitalWill {
             "Withdrawal not allowed yet"
         );
 
-        (bool success, ) = users[parent].recipient.call{value: users[parent].balance }("");
+        (bool success, ) = users[parent].recipient.call{
+            value: users[parent].balance
+        }("");
         require(success, "Transfer to recipient failed");
+
+        emit Withdrawn(parent, users[parent].recipient, users[parent].balance);
 
         users[parent].balance = 0;
 
@@ -56,9 +72,13 @@ contract DigitalWill {
             "Only owner can call this function"
         );
 
-        (bool success, ) = users[msg.sender].user.call{ value: users[msg.sender].balance }("");
+        (bool success, ) = users[msg.sender].user.call{
+            value: users[msg.sender].balance
+        }("");
 
         require(success, "Transfer to recipient failed");
+
+        emit RevertedToOwner(msg.sender, users[msg.sender].balance);
 
         users[msg.sender].balance = 0;
 
@@ -71,29 +91,22 @@ contract DigitalWill {
             "Only the user can call this function"
         );
         users[msg.sender].lastAction = block.timestamp;
+        emit Pinged(msg.sender);
     }
 
-    function viewUserBalance() external view returns (uint) {
-        return users[msg.sender].balance;
+    // View function to return user info
+    function getUserInfo(address _user) public view returns (UserInfo memory) {
+        return users[_user];
     }
 
-    function viewUserRecipeint() external view returns (address) {
-        return users[msg.sender].recipient;
-    }
+    function removeUser(address userAddress) internal {
+        require(
+            users[userAddress].balance == 0,
+            " User can't be remvoed Because User has not withdrawn yet"
+        );
 
-    function viewUserLastAction() external view returns (uint) {
-        return users[msg.sender].lastAction;
-    }
-
-     function removeUser(address userAddress) internal {
-        require(users[userAddress].user != address(0), "User does not exist");
-        require( users[userAddress].balance == 0,
-            " User can't be remvoed Because User has not withdrawn yet" );
+        emit UserRemoved(userAddress);
 
         users[userAddress] = UserInfo(address(0), address(0), 0, 0);
-    }
-
-    constructor() {
-        deployer = msg.sender;
     }
 }
