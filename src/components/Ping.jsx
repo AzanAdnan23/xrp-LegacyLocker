@@ -1,6 +1,6 @@
 import React from "react";
 import { ethers } from "ethers";
-import DigitalWill from "./artifacts/contracts/DigitalWill.sol/DigitalWill";
+import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill";
 
 function PingContract() {
   const handleButtonClick = async () => {

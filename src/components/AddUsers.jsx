@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ethers } from "ethers";
-import DigitalWill from "./artifacts/contracts/DigitalWill.sol/DigitalWill";
+import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill";
 
 function AddUsers() {
   const [recipient, setRecipient] = useState();

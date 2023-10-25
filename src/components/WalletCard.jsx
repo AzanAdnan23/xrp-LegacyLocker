@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
 
-const WalletCard = () => {
+const WalletCard = ({onConnect}) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
@@ -39,6 +39,7 @@ const WalletCard = () => {
             accountChangedHandler(result[0]);
             setConnButtonText('Wallet Connected');
             getAccountBalance(result[0]);
+            onConnect(); // Call the passed in prop here
           })
           .catch((error) => {
             setErrorMessage(error.message);
@@ -98,8 +99,6 @@ const WalletCard = () => {
     <div className="walletCard">
       <button onClick={connectWalletHandler}>{connButtonText}</button>
       {errorMessage}
-
-      <div> Address: {defaultAccount}</div>
     </div>
   );
 };
