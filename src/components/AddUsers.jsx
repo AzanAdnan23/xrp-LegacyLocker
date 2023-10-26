@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill";
 
 function AddUsers() {
-  const [recipient, setRecipient] = useState();
+  const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState();
   const [signer, setSigner] = useState();
   const [account, setAccount] = useState();

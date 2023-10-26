@@ -7,6 +7,9 @@ import PingContract from "../components/Ping";
 import Userinfo from "../components/UserInfo";
 
 function UserDashboard() {
+
+  console.log("ud rendered");
+
   const [isWalletConnected, setIsWalletConnected] = useState(false);
 
   const handleConnect = () => {

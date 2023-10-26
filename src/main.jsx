@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import UserDashboard from "./pages/UserDashboard";
+import App from "./App";
 import "./styles/index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -14,7 +14,7 @@ if (!window.ethereum) {
 } else {
   root.render(
     <React.StrictMode>
-      <UserDashboard />
+      <App />
     </React.StrictMode>
   );
 }
