@@ -18,7 +18,7 @@ function Withdraw() {
 
     const tx = await digitalWill.withdraw(parentAddress);
     await tx.wait();
-    
+
     console.log(" withdrawal sucessfully: ", tx);
 
     alert(" withdrawal sucessfully..");
@@ -42,7 +42,7 @@ function Withdraw() {
         onChange={handleParentChange}
       />
 
-      <button onClick={handleButtonClick}>Add User</button>
+      <button onClick={handleButtonClick}> Withdraw </button>
     </>
   );
 }
