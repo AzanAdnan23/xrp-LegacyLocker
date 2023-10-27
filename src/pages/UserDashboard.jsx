@@ -1,24 +1,16 @@
-import React, { useState } from "react";
+// UserDashboard.jsx
+import React from "react";
 import "../styles/UserDashboard.css";
-import WalletCard from "../components/WalletCard";
 import AddUsers from "../components/AddUsers";
 import RevertPayment from "../components/RevertToOwner";
 import PingContract from "../components/Ping";
 import Userinfo from "../components/UserInfo";
 
-function UserDashboard() {
-
+function UserDashboard({ isWalletConnected }) {
   console.log("ud rendered");
-
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
-
-  const handleConnect = () => {
-    setIsWalletConnected(true);
-  };
 
   return (
     <>
-      <WalletCard onConnect={handleConnect} />
       {isWalletConnected && <Userinfo />}
       <AddUsers />
       <RevertPayment />
