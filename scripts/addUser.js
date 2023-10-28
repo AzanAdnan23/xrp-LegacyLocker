@@ -4,7 +4,7 @@ async function main() {
   const DContract = await ethers.getContractFactory("DigitalWill");
 
   const dContract = DContract.attach(
-    "0x5E52b19D74E513B936236120c963c37d6C85C0f6"
+    "0xDd3330863ecEa52a146f001f6330F2EA24931173"
   );
 
   // let amount = ethers.utils.parseEther('5');

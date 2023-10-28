@@ -7,6 +7,7 @@ function Userinfo() {
   const [userAddress, setUserAddress] = useState();
   const [recipient, setRecipient] = useState();
   const [lastAction, setLastAction] = useState();
+  const [time, setTime] = useState();
 
   useEffect(() => {
     if (window.ethereum && window.ethereum.isConnected()) {
@@ -64,11 +65,29 @@ function Userinfo() {
 
       setLastAction(formatTime(daysAgo));
 
+      let customTimeInWeeks = tx[4].toNumber() / (7 * 24 * 60 * 60);
+      setTime(customTimeInWeeks);
+
       setUserBalance(ethers.utils.formatEther(tx[3]));
     } catch (error) {
       console.error("Error fetching user info:", error);
     }
   };
+
+  return (
+    <div>
+      {userAddress !== "0x0000000000000000000000000000000000000000" &&
+        recipient !== "0x0000000000000000000000000000000000000000" && (
+          <>
+            <div> User Address: {userAddress}</div>
+            <div> recipient Address : {recipient}</div>
+            <div>User Balance: {userBalance}</div>
+            <div> Time set for withdrawal: {time} week </div>
+            <div> lastAction:{lastAction}</div>
+          </>
+        )}
+    </div>
+  );
 
   function formatTime(days) {
     // Calculate the number of whole days, hours, minutes, and seconds
@@ -109,19 +128,5 @@ function Userinfo() {
 
     return timeString;
   }
-
-  return (
-    <div>
-      {userAddress !== "0x0000000000000000000000000000000000000000" &&
-        recipient !== "0x0000000000000000000000000000000000000000" && (
-          <>
-            <div> User Address: {userAddress}</div>
-            <div>User Balance: {userBalance}</div>
-            <div> recipient Address : {recipient}</div>
-            <div> lastAction:{lastAction}</div>
-          </>
-        )}
-    </div>
-  );
 }
 export default Userinfo;
