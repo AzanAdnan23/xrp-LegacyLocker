@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill.json";
 
-function Userinfo() {
+function RecipientInfo() {
   const [userBalance, setUserBalance] = useState();
-  const [userAddress, setUserAddress] = useState();
+  const [parentAddress, setUserAddress] = useState();
   const [recipient, setRecipient] = useState();
   const [lastAction, setLastAction] = useState();
 
@@ -38,7 +38,7 @@ function Userinfo() {
       }
 
       const digitalWill = new ethers.Contract(
-        "0x5E52b19D74E513B936236120c963c37d6C85C0f6",
+        "0xDd3330863ecEa52a146f001f6330F2EA24931173",
         DigitalWill.abi,
         provider
       );
@@ -115,13 +115,14 @@ function Userinfo() {
       {userAddress !== "0x0000000000000000000000000000000000000000" &&
         recipient !== "0x0000000000000000000000000000000000000000" && (
           <>
-            <div> User Address: {userAddress}</div>
-            <div>User Balance: {userBalance}</div>
-            <div> recipient Address : {recipient}</div>
+            <div> Recipient Address: {recipient}</div>
+            <div> Parent Address: {userAddress}</div>
+            <div>Parent Balance: {userBalance}</div>
             <div> lastAction:{lastAction}</div>
+            <div> Withdrawal: </div>
           </>
         )}
     </div>
   );
 }
-export default Userinfo;
+export default RecipientInfo;

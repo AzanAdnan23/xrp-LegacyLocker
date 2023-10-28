@@ -3,27 +3,29 @@ import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill";
 
 function AddUsers() {
-  const [recipient, setRecipient] = useState('');
+  const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState();
-  const [signer, setSigner] = useState();
-  const [account, setAccount] = useState();
+  const [time, setTime] = useState();
 
   const handleButtonClick = async () => {
     let provider = new ethers.providers.Web3Provider(window.ethereum);
 
     const accounts = await provider.send("eth_requestAccounts", []);
-    setAccount(accounts[0]);
 
     const Signer = provider.getSigner();
-    setSigner(Signer);
+
+    const timeInSeconds = time * 7 * 24 * 60 * 60;
+    console.log(timeInSeconds);
 
     // Create an instance of the contract using its address and ABI
     const digitalWill = new ethers.Contract(
-      "0x5E52b19D74E513B936236120c963c37d6C85C0f6",
+      "0xDd3330863ecEa52a146f001f6330F2EA24931173",
       DigitalWill.abi,
       Signer
     );
-    const tx = await digitalWill.adduser(recipient, { value:  ethers.utils.parseEther(amount) });
+    const tx = await digitalWill.adduser(recipient, timeInSeconds, {
+      value: ethers.utils.parseEther(amount),
+    });
     await tx.wait();
 
     alert(`Recipient: ${recipient}, Value: ${amount}`);
@@ -37,6 +39,10 @@ function AddUsers() {
   // Function to handle amount input change
   const handleValueChange = (e) => {
     setAmount(e.target.value);
+  };
+
+  const handleTimeChange = (e) => {
+    setTime(e.target.value);
   };
 
   return (
@@ -55,6 +61,13 @@ function AddUsers() {
         placeholder="Type value in XRP..."
         value={amount}
         onChange={handleValueChange}
+      />
+      <label>Time: </label>
+      <input
+        type="text"
+        placeholder="Type time in weeks..."
+        value={time}
+        onChange={handleTimeChange}
       />
       <button onClick={handleButtonClick}>Add User</button>
     </div>
