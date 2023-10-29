@@ -21,8 +21,6 @@ async function main() {
   console.log("User info:", tx);
 
   console.log(typeof tx);
-
-
 }
 
 main()

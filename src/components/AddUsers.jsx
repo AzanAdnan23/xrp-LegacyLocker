@@ -8,14 +8,11 @@ function AddUsers() {
   const [time, setTime] = useState();
 
   const handleButtonClick = async () => {
+    
     let provider = new ethers.providers.Web3Provider(window.ethereum);
-
     const accounts = await provider.send("eth_requestAccounts", []);
-
     const Signer = provider.getSigner();
-
     const timeInSeconds = time * 7 * 24 * 60 * 60;
-    console.log(timeInSeconds);
 
     // Create an instance of the contract using its address and ABI
     const digitalWill = new ethers.Contract(
@@ -28,7 +25,7 @@ function AddUsers() {
     });
     await tx.wait();
 
-    alert(`Recipient: ${recipient}, Value: ${amount}`);
+    alert(`User Added Sucesfully Recipient: ${recipient}, Value: ${amount}`);
   };
 
   // Function to handle recipient input change
