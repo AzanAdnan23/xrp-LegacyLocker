@@ -3,12 +3,11 @@ import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill";
 
 function AddUsers() {
-  const [recipient, setRecipient] = useState("");
+  const [recipients, setRecipients] = useState([""]);
   const [amount, setAmount] = useState();
   const [time, setTime] = useState();
 
   const handleButtonClick = async () => {
-    
     let provider = new ethers.providers.Web3Provider(window.ethereum);
     const accounts = await provider.send("eth_requestAccounts", []);
     const Signer = provider.getSigner();
@@ -16,21 +15,24 @@ function AddUsers() {
 
     // Create an instance of the contract using its address and ABI
     const digitalWill = new ethers.Contract(
-      "0xDd3330863ecEa52a146f001f6330F2EA24931173",
+      "0xe3F165c93b3098d5Bb4205dD8eDCD50eC1D3960E",
       DigitalWill.abi,
       Signer
     );
-    const tx = await digitalWill.adduser(recipient, timeInSeconds, {
+
+    const tx = await digitalWill.adduser(recipients, timeInSeconds, {
       value: ethers.utils.parseEther(amount),
     });
     await tx.wait();
 
-    alert(`User Added Sucesfully Recipient: ${recipient}, Value: ${amount}`);
+    alert(`Users Added Successfully Recipients: ${recipients.join(", ")}, Value: ${amount}`);
   };
 
   // Function to handle recipient input change
-  const handleRecipientChange = (e) => {
-    setRecipient(e.target.value);
+  const handleRecipientChange = (e, index) => {
+    const newRecipients = [...recipients];
+    newRecipients[index] = e.target.value;
+    setRecipients(newRecipients);
   };
 
   // Function to handle amount input change
@@ -42,16 +44,32 @@ function AddUsers() {
     setTime(e.target.value);
   };
 
+  // Function to remove the last recipient
+  const handleRemoveRecipient = () => {
+    const newRecipients = [...recipients];
+    newRecipients.pop();
+    setRecipients(newRecipients);
+  };
+
   return (
     <div>
       <h3> Add User: </h3>
-      <label>Recipient: </label>
-      <input
-        type="text"
-        placeholder="Type recipient address..."
-        value={recipient}
-        onChange={handleRecipientChange}
-      />
+      {recipients.map((recipient, index) => (
+        <div key={index}>
+          <label>Recipient: </label>
+          <input
+            type="text"
+            placeholder="Type recipient address..."
+            value={recipient}
+            onChange={(e) => handleRecipientChange(e, index)}
+          />
+        </div>
+      ))}
+      <br />
+      <button onClick={() => setRecipients([...recipients, ""])}>Add another recipient</button>
+      <button onClick={handleRemoveRecipient}>Remove last recipient</button>
+      <br />
+      <br />
       <label>Amount: </label>
       <input
         type="text"
@@ -59,6 +77,7 @@ function AddUsers() {
         value={amount}
         onChange={handleValueChange}
       />
+      <br />
       <label>Time: </label>
       <input
         type="text"
@@ -66,6 +85,8 @@ function AddUsers() {
         value={time}
         onChange={handleTimeChange}
       />
+      <br />
+      <br />
       <button onClick={handleButtonClick}>Add User</button>
     </div>
   );

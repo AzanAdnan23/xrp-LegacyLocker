@@ -10,7 +10,7 @@ function Withdraw() {
     const Signer = provider.getSigner();
     
     const digitalWill = new ethers.Contract(
-      "0xDd3330863ecEa52a146f001f6330F2EA24931173",
+      "0xe3F165c93b3098d5Bb4205dD8eDCD50eC1D3960E",
       DigitalWill.abi,
       Signer
     );
