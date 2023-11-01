@@ -25,7 +25,11 @@ function AddUsers() {
     });
     await tx.wait();
 
-    alert(`Users Added Successfully Recipients: ${recipients.join(", ")}, Value: ${amount}`);
+    alert(
+      `Users Added Successfully Recipients: ${recipients.join(
+        ", "
+      )}, Value: ${amount}`
+    );
   };
 
   // Function to handle recipient input change
@@ -53,20 +57,26 @@ function AddUsers() {
 
   return (
     <div>
-      <h3> Add User: </h3>
-      {recipients.map((recipient, index) => (
-        <div key={index}>
-          <label>Recipient: </label>
-          <input
-            type="text"
-            placeholder="Type recipient address..."
-            value={recipient}
-            onChange={(e) => handleRecipientChange(e, index)}
-          />
-        </div>
-      ))}
+      <div className=" ">
+        <h3 className=""> Add User: </h3>
+        {recipients.map((recipient, index) => (
+          <div key={index}>
+            <label>Recipient: </label>
+            <input
+              type="text"
+              placeholder="Type recipient address..."
+              value={recipient}
+              onChange={(e) => handleRecipientChange(e, index)}
+            />
+          </div>
+        ))}
+      </div>
+
+
       <br />
-      <button onClick={() => setRecipients([...recipients, ""])}>Add another recipient</button>
+      <button onClick={() => setRecipients([...recipients, ""])}>
+        Add another recipient
+      </button>
       <button onClick={handleRemoveRecipient}>Remove last recipient</button>
       <br />
       <br />

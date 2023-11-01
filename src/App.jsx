@@ -5,7 +5,7 @@ import UserDashboard from "./pages/UserDashboard";
 import Recipient from "./pages/Recipient";
 import HomePage from "./pages/Homepage";
 import NavBar from "./components/NavBar";
-
+import Footer from "./components/Footer";
 function App() {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
 
@@ -14,6 +14,7 @@ function App() {
   };
 
   return (
+    <div className="bg-black text-white">
     <Router>
       <NavBar onConnect={handleConnect} />
 
@@ -22,7 +23,9 @@ function App() {
         <Route path="/recipient" element={<Recipient />} />
         <Route path="/" element={<HomePage />} />
       </Routes>
+      <Footer />
     </Router>
+    </div>
   );
 }
 

@@ -96,7 +96,7 @@ const WalletCard = ({onConnect}) => {
   }, []);
 
   return (
-    <div className="walletCard">
+    <div className="font-semibold px-4 py-2 bg-purple-700 text-white rounded-md hover:bg-purple-800">
       <button onClick={connectWalletHandler}>{connButtonText}</button>
       {errorMessage}
     </div>

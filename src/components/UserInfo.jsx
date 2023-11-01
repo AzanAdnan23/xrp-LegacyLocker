@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill.json";
 
+
 function Userinfo() {
   const [userBalance, setUserBalance] = useState();
   const [userAddress, setUserAddress] = useState();

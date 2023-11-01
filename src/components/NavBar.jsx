@@ -3,30 +3,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import WalletCard from "../components/WalletCard";
 
-const navStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  listStyle: "none",
-  padding: "10px",
-  backgroundColor: "#333",
-};
-
-const linkStyle = {
-  textDecoration: "none",
-  color: "#fff",
-};
-
 const NavBar = ({ onConnect }) => (
-  <nav>
-    <ul style={navStyle}>
+  <nav className="bg-black text-white p-6  font-semibold font-sans">
+    <ul className="flex space-x-4 justify-between ">
       <li>
-        <Link to="/" style={linkStyle}>Home</Link>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/userdashboard" style={linkStyle}>User Dashboard</Link>
+        <Link to="/userdashboard">Will Dashboard</Link>
       </li>
       <li>
-        <Link to="/recipient" style={linkStyle}>Recipient</Link>
+        <Link to="/recipient">Withdraw Funds</Link>
       </li>
       <li>
         <WalletCard onConnect={onConnect} />
