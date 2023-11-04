@@ -101,7 +101,7 @@ function Withdraw() {
         2. Enter the parent's wallet address for verification.
       </p>
 
-      <p className="text-lg font-semibold mt-8">
+      <p className="text-lg font-bold mt-8 mb-2">
         {" "}
         Enter Parent's Wallet Address:{" "}
       </p>
@@ -147,7 +147,7 @@ function Withdraw() {
             <div>{timeRemaning}</div>
           </div>
 
-          <div className="flex gap-4 mt-2">
+          <div className="flex gap-4 mt-10">
             <h3 className=" font-bold"> Withdraw payment: </h3>
             <div className="font-bold px-4 w-40 py-2 bg-purple-700 text-white rounded-md hover:bg-purple-800">
               <button onClick={handleWithdrawButtonClick}>

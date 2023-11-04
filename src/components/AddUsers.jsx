@@ -57,7 +57,8 @@ function AddUsers() {
 
   return (
     <div className="px-8">
-      <h3 className="text-lg font-semibold mt-8"> Add Recipient Address: </h3>
+      
+      <h3 className="text-lg font-bold mt-8 mb-4"> Add Recipient Address: </h3>
       {recipients.map((recipient, index) => (
         <div className=" flex gap-4 mt-2" key={index}>
           <p className=" font-bold ">Recipient: </p>

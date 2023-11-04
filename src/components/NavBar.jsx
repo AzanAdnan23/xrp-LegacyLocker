@@ -10,7 +10,7 @@ const NavBar = ({ onConnect }) => (
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/userdashboard">Will Dashboard</Link>
+        <Link to="/userdashboard">Legacy Dashboard</Link>
       </li>
       <li>
         <Link to="/recipient">Withdraw Funds</Link>

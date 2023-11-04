@@ -4,11 +4,8 @@ import RecipientInfo from "../components/RecipientInfo";
 
 function Recipient() {
   return (
-    <div className="">
-
+    <div className="px-24">
       <Withdraw />
-     
-
     </div>
   );
 }

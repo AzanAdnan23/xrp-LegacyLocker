@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill";
+import home from "/src/assets/home.svg";
 
 import AddUsers from "../components/AddUsers";
 import RevertPayment from "../components/RevertToOwner";
@@ -38,16 +39,20 @@ function UserDashboard({ isWalletConnected }) {
       console.error("Error fetching IsUser:", error);
     }
   };
-
-  checkUser();
+  if (isWalletConnected) {
+    checkUser();
+  }
   return (
-    <>
-      <p className="text-3xl text-center font-bold mt-2">Legacy Manager Dashboard</p>
+    <div className="px-24">
+      <p className="text-3xl text-center font-bold mt-4 mb-2">
+        Legacy Manager Dashboard
+      </p>
+      <p className="text-1xl text-center font-bold mb-12">Ensuring the Future of Your Digital Legacy with Secure Access</p>
       {isUser && <Userinfo />}
       {!isUser && <AddUsers />}
       {isUser && <RevertPayment />}
       {isUser && <PingContract />}
-    </>
+    </div>
   );
 }
 
