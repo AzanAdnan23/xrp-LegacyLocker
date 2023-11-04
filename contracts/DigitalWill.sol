@@ -133,6 +133,18 @@ contract DigitalWill {
         return false;
     }
 
+      function isRecipientE(
+        address _user,
+        address _recipient
+    ) external view returns (bool) {
+        for (uint i = 0; i < users[_user].recipients.length; i++) {
+            if (users[_user].recipients[i] == _recipient) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function isUser(address _user) public view returns (bool) {
         return users[_user].user == _user;
     }

@@ -9,7 +9,7 @@ function PingContract() {
     const Signer = provider.getSigner();
 
     const digitalWill = new ethers.Contract(
-      "0xe3F165c93b3098d5Bb4205dD8eDCD50eC1D3960E",
+      "0xbBdE203FB84d3822460634f52906C091a7cD608A",
       DigitalWill.abi,
       Signer
     );
@@ -22,13 +22,15 @@ function PingContract() {
   };
 
   return (
-    <div>
-      <h3> Ping Contract: </h3>
-      <label> click the button and sign from ur connected wallet: </label>
-      <button onClick={handleButtonClick}> Ping </button>
-      <p>
-      this button will ping the contract and will tell that u are alive. reset the timer.
-      </p>
+    <div className="px-8 ">
+      <h3 className="text-lg font-bold mt-8"> Ping Contract: </h3>
+
+      <p className=""> This button will notify the contract and reset the timer, indicating that you are still active. </p>
+
+      <div className="mt-4 font-bold text-center px-4 w-40 py-2 bg-purple-700 text-white rounded-md hover:bg-purple-800">
+      <button onClick={handleButtonClick}> Ping Contract </button>
+      </div>
+    
     </div>
   );
 }

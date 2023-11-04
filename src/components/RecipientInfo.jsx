@@ -3,10 +3,8 @@ import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill.json";
 
 function RecipientInfo() {
-  const [userBalance, setUserBalance] = useState();
-  const [parentAddress, setUserAddress] = useState();
-  const [recipient, setRecipient] = useState();
-  const [lastAction, setLastAction] = useState();
+  const [parentAddr, setUserAddr] = useState();
+  const [recipientAddr, setRecipientAddr] = useState();
 
   useEffect(() => {
     if (window.ethereum && window.ethereum.isConnected()) {
@@ -43,86 +41,29 @@ function RecipientInfo() {
         provider
       );
 
-      const tx = await digitalWill.getUserInfo(accounts[0]);
+      const tx1 = await digitalWill.getUserInfo(accounts[0]);
 
-      console.log("User info Called! ", accounts[0]);
+      const tx2 =await digitalWill.getRecipientBalance(accounts[0]);
 
-      setUserAddress(tx[0].toString());
-      setRecipient(tx[1].toString());
+      console.log("Recipient info Called! ", tx2);
 
-      // Get the current timestamp in seconds
-      let currentTimestamp = Math.floor(Date.now() / 1000);
-
-      // Calculate the number of seconds in a week
-      const SECONDS_IN_A_WEEK = 7 * 24 * 60 * 60;
-
-      // Subtract the lastAction timestamp from the current timestamp and convert to weeks
-      let weeksAgo = (currentTimestamp - parseInt(tx[2])) / SECONDS_IN_A_WEEK;
-
-      // Convert weeks to days
-      let daysAgo = weeksAgo * 7;
-
-      setLastAction(formatTime(daysAgo));
-
-      setUserBalance(ethers.utils.formatEther(tx[3]));
+   
     } catch (error) {
       console.error("Error fetching user info:", error);
     }
   };
 
-  function formatTime(days) {
-    // Calculate the number of whole days, hours, minutes, and seconds
-    let wholeDays = Math.floor(days);
-    let hours = Math.floor((days - wholeDays) * 24);
-    let minutes = Math.floor(((days - wholeDays) * 24 - hours) * 60);
-    let seconds = Math.floor(
-      (((days - wholeDays) * 24 - hours) * 60 - minutes) * 60
-    );
-
-    // Create a string to represent the time
-    let timeString = "";
-
-    if (wholeDays > 0) {
-      timeString += wholeDays + " day" + (wholeDays === 1 ? "" : "s");
-    }
-
-    if (hours > 0) {
-      if (timeString !== "") {
-        timeString += ", ";
-      }
-      timeString += hours + " hour" + (hours === 1 ? "" : "s");
-    }
-
-    if (minutes > 0) {
-      if (timeString !== "") {
-        timeString += ", ";
-      }
-      timeString += minutes + " minute" + (minutes === 1 ? "" : "s");
-    }
-
-    if (seconds > 0) {
-      if (timeString !== "") {
-        timeString += ", ";
-      }
-      timeString += seconds + " second" + (seconds === 1 ? "" : "s");
-    }
-
-    return timeString;
-  }
-
   return (
     <div>
-      {userAddress !== "0x0000000000000000000000000000000000000000" &&
-        recipient !== "0x0000000000000000000000000000000000000000" && (
-          <>
-            <div> Recipient Address: {recipient}</div>
-            <div> Parent Address: {userAddress}</div>
-            <div>Parent Balance: {userBalance}</div>
-            <div> lastAction:{lastAction}</div>
-            <div> Withdrawal: </div>
-          </>
-        )}
+      <div> Recipient Address:{recipientAddr} </div>
+      <div> Parent Address:{} </div>
+      <div> Recipient Share: </div>
+      <div> Last Action: </div>
+
     </div>
   );
 }
 export default RecipientInfo;
+
+
+//  parent address recipient address, recipient share, time left , time set for withdrawal

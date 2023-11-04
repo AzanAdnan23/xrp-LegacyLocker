@@ -9,7 +9,7 @@ function RevertPayment() {
     const Signer = provider.getSigner();
 
     const digitalWill = new ethers.Contract(
-      "0xe3F165c93b3098d5Bb4205dD8eDCD50eC1D3960E",
+      "0xbBdE203FB84d3822460634f52906C091a7cD608A",
       DigitalWill.abi,
       Signer
     );
@@ -22,15 +22,20 @@ function RevertPayment() {
   };
 
   return (
-    <div>
-      <h3> Revert Payment: </h3>
-      <label> click the button and sign from ur connected wallet: </label>
-      <button onClick={handleButtonClick}> Revet Payment</button>
+    <div className="px-8 ">
+      <h3 className="text-lg font-bold mt-8"> Revert Payment: </h3>
+
+      <p className="my-2"> Click the button and sign the transection with your connected wallet. </p>
+
       <p>
-        {" "}
-        get your money back in the wallet from which you send the payment and
-        speccifed the user. Any other wallet will not work.
+        Get your funds back in the wallet from which you made the payment and
+        specified the user.
+        <br />
+        Note: Only the designated wallet will work for this purpose.
       </p>
+      <div className="mt-4  text-center font-bold px-4 w-40 py-2 bg-purple-700 text-white rounded-md hover:bg-purple-800">
+        <button onClick={handleButtonClick}> Revet Payment</button>
+      </div>
     </div>
   );
 }

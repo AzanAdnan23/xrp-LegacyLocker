@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill.json";
 
-
 function Userinfo() {
   const [userBalance, setUserBalance] = useState();
   const [userAddress, setUserAddress] = useState();
@@ -40,7 +39,7 @@ function Userinfo() {
       }
 
       const digitalWill = new ethers.Contract(
-        "0xe3F165c93b3098d5Bb4205dD8eDCD50eC1D3960E",
+        "0xbBdE203FB84d3822460634f52906C091a7cD608A",
         DigitalWill.abi,
         provider
       );
@@ -76,17 +75,24 @@ function Userinfo() {
   };
 
   return (
-    <div>
-      {userAddress !== "0x0000000000000000000000000000000000000000" &&
-        recipient !== "0x0000000000000000000000000000000000000000" && (
-          <>
-            <div> User Address: {userAddress}</div>
-            <div> recipient Address : {recipient}</div>
-            <div>User Balance: {userBalance}</div>
-            <div> Time set for withdrawal: {time} week </div>
-            <div> lastAction:{lastAction}</div>
-          </>
-        )}
+    <div className="px-8 ">
+      <p className="text-lg font-bold mt-8"> User Details:</p>
+
+      <div className="my-2">
+        <span className="font-bold">My Address:</span> {userAddress}
+      </div>
+      <div className="my-2">
+        <span className="font-bold">Recipient Address:</span> {recipient}
+      </div>
+      <div className="my-2">
+        <span className="font-bold">Balance in Contract:</span> {userBalance}
+      </div>
+      <div className="my-2">
+        <span className="font-bold">Time set for withdrawal:</span> {time} week
+      </div>
+      <div className="my-2">
+        <span className="font-bold">Last Action:</span> {lastAction}
+      </div>
     </div>
   );
 
@@ -118,13 +124,6 @@ function Userinfo() {
         timeString += ", ";
       }
       timeString += minutes + " minute" + (minutes === 1 ? "" : "s");
-    }
-
-    if (seconds > 0) {
-      if (timeString !== "") {
-        timeString += ", ";
-      }
-      timeString += seconds + " second" + (seconds === 1 ? "" : "s");
     }
 
     return timeString;

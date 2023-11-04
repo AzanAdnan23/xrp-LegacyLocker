@@ -14,8 +14,8 @@ async function main() {
   //  let tx2 = await dContract.revertToOwner();
   //  console.log("Transection Hash",tx2.hash);
 
-  const tx = await dContract.getUserInfo(
-    "0xf446609bb1576e587969eb2a88c0f7288c732856"
+  const tx = await dContract.getRecipientBalance(
+    "0xF657E0B79c3b665Ad053866fb7634e3270F4f02F"
   );
 
   console.log("User info:", tx);

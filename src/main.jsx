@@ -6,5 +6,8 @@ import "./styles/index.css";
 const root = createRoot(document.getElementById("root"));
 
 root.render(
-  <App />
+  <div className="bg-black text-white">
+     <App />
+  </div>
+ 
 );

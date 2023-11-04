@@ -14,19 +14,22 @@ function App() {
   };
 
   return (
-    <div className="bg-black text-white">
-    <Router>
-      <NavBar onConnect={handleConnect} />
+    <div>
+      <Router>
+        <NavBar onConnect={handleConnect} />
 
-      <Routes>
-        <Route path="/userdashboard" element={<UserDashboard isWalletConnected={isWalletConnected} />} />
-        <Route path="/recipient" element={<Recipient />} />
-        <Route path="/" element={<HomePage />} />
-      </Routes>
-      <Footer />
-    </Router>
+        <Routes>
+          <Route
+            path="/userdashboard"
+            element={<UserDashboard isWalletConnected={isWalletConnected} />}
+          />
+          <Route path="/recipient" element={<Recipient />} />
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }
-
+//
 export default App;

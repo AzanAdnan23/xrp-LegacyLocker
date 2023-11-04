@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white p-4">
+    <footer className="bg-black text-white p-4 relative bottom-0 w-full z-10 ">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-gray-600">
           <p>&copy; 2023 XRP Ledger. Open Source.</p>
