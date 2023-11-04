@@ -2,14 +2,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import WalletCard from "../components/WalletCard";
-import logo from '/src/assets/logo.png'; 
+import logo from "/src/assets/logo.png";
 
 const NavBar = ({ onConnect }) => (
-  <nav className="bg-black text-white p-6  font-semibold font-sans">
+  <nav className="bg-black text-white p-6  font-bold font-sans">
     <ul className="flex space-x-4 justify-between items-center">
       <li>
         <Link to="/">
-          <img src={logo} alt="Home" className="h-10 w-auto"/> 
+          <img src={logo} alt="Home" className="h-10 w-auto" />
         </Link>
       </li>
       <li>

@@ -50,10 +50,10 @@ function UserDashboard({ isWalletConnected }) {
       backgroundPosition: "top right",
       backgroundSize: "w-1000 h-1000",
     }}>
-      <p className="text-3xl text-center font-bold mt-4 mb-2">
+      <p className="text-3xl text-center font-bold mt-12 mb-2">
         Legacy Manager Dashboard
       </p>
-      <p className="text-1xl text-center font-bold mb-12">Ensuring the Future of Your Digital Legacy with Secure Access</p>
+      <p className="text-1xl text-center font-bold mb-20">Ensuring the Future of Your Digital Legacy with Secure Access</p>
       {isUser && <Userinfo />}
       {!isUser && <AddUsers />}
       {isUser && <RevertPayment />}

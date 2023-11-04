@@ -90,7 +90,7 @@ function Withdraw() {
       <h2 className="text-3xl text-center font-bold mt-2 ">
         Withdraw Funds Dashboard
       </h2>
-      <h3 className="text-1xl text-center font-bold m-2">
+      <h3 className="text-1xl text-center font-bold m-2 mb-20">
         Access your digital assets securely
       </h3>
 

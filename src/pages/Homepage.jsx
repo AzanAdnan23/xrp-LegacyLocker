@@ -3,20 +3,17 @@ import purpleImage from "/src/assets/home-purple.svg";
 import greenImage from "/src/assets/home-green.svg";
 function HomePage() {
   return (
-    // check this boii i quit
     <div
       className="bg-black text-white"
       style={{
         backgroundImage: `url(${purpleImage}), url(${greenImage})`,
         backgroundRepeat: "no-repeat, no-repeat",
         backgroundPosition: "0 0, right top",
-        backgroundSize: "600px 600px, 600px 600px",
-        margin: 0,
-        padding: 0,
+        backgroundSize: "w-271 h-688, w-271 h-688",
       }}
     >
       <div>
-        <h2 className="text-center text-5xl font-extrabold font-sans m-6 mt-60">
+        <h2 className="text-center text-5xl font-extrabold font-sans m-6 pt-64">
           XRP Legacy Locker
         </h2>
         <p className="text-center text-2xl font-bold font-sans">
@@ -25,7 +22,7 @@ function HomePage() {
         </p>
 
         <div className=" text-2xl  font-sans mt-60 px-60">
-          <p className="text-center font-bold text-3xl ">
+          <p className="text-center font-bold text-3xl">
             Introducing XRP LegacyLocker: Redefining the Way You Pass On Wealth
           </p>
           <br />
@@ -153,11 +150,11 @@ function HomePage() {
             <h3 className=" text-3xl font-bold">
               Ready to Secure Your Legacy?
             </h3>
-            <div className="mt-4">
+            <div className="mt-4 my-64">
               Take the first step towards securing your digital assets for your
-              heirs. Connect today and create your XRP LegacyLocker. <br /> Trust in
-              the blockchain, and make the future of wealth transfer simple,
-              secure, and hassle-free.
+              heirs. Connect today and create your XRP LegacyLocker. <br />{" "}
+              Trust in the blockchain, and make the future of wealth transfer
+              simple, secure, and hassle-free.
             </div>
           </div>
         </div>
