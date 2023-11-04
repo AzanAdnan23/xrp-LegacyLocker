@@ -86,7 +86,7 @@ function Withdraw() {
   };
 
   return (
-    <div className="px-8">
+    <div className="px-8 mt-8">
       <h2 className="text-3xl text-center font-bold mt-2 ">
         Withdraw Funds Dashboard
       </h2>

@@ -8,10 +8,11 @@ function Recipient() {
     style={{
       backgroundImage: `url(${green})`,
       backgroundRepeat: "no-repeat",
-      backgroundPosition: "right",
-      backgroundSize: "w-297 h-843",
+      backgroundPosition: "top right",
+      backgroundSize: "w-1000 h-1000",
     }}>
       <Withdraw />
+      <div className="py-56"></div>
     </div>
   );
 }

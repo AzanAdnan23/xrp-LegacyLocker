@@ -58,6 +58,7 @@ function UserDashboard({ isWalletConnected }) {
       {!isUser && <AddUsers />}
       {isUser && <RevertPayment />}
       {isUser && <PingContract />}
+      <div className="py-36"></div>
     </div>
   );
 }

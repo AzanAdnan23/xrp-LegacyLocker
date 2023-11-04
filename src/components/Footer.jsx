@@ -3,7 +3,7 @@ import greenImage from "/src/assets/footer.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white pt-60 relative">
+    <footer className="bg-black text-white pt-30 relative">
       <div className="flex">
         <div className="container flex gap-20 items-center">
           <div className="ml-20">
