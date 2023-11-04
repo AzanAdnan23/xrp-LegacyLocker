@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill";
-import home from "/src/assets/home.svg";
+import green from "/src/assets/home-green.svg";
 
 import AddUsers from "../components/AddUsers";
 import RevertPayment from "../components/RevertToOwner";
@@ -43,7 +43,13 @@ function UserDashboard({ isWalletConnected }) {
     checkUser();
   }
   return (
-    <div className="px-24">
+    <div className="px-24"
+    style={{
+      backgroundImage: `url(${green})`,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "top right",
+      backgroundSize: "w-1000 h-1000",
+    }}>
       <p className="text-3xl text-center font-bold mt-4 mb-2">
         Legacy Manager Dashboard
       </p>
