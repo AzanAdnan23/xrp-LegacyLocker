@@ -22,7 +22,7 @@ function Withdraw() {
         return;
       }
       const digitalWill = new ethers.Contract(
-        "0xbBdE203FB84d3822460634f52906C091a7cD608A",
+        "0x83bac192f2fa774962a538D2ee300695f84eea6f",
         DigitalWill.abi,
         provider
       );
@@ -72,7 +72,7 @@ function Withdraw() {
     const Signer = provider.getSigner();
 
     const digitalWill = new ethers.Contract(
-      "0xbBdE203FB84d3822460634f52906C091a7cD608A",
+      "0x83bac192f2fa774962a538D2ee300695f84eea6f",
       DigitalWill.abi,
       Signer
     );

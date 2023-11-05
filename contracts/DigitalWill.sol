@@ -42,9 +42,15 @@ contract DigitalWill {
             customTime: _customTime
         });
 
-        uint256 recipientShare = msg.value / _recipients.length; // Distribute equally among all recipients
+        uint256 recipientShare;
+        if (_recipients.length == 1) {
+            recipientShare = msg.value; // If there's only one recipient, assign the entire balance
+        } else {
+            recipientShare = msg.value / _recipients.length; // Otherwise, distribute equally among all recipients
+        }
+
         for (uint i = 0; i < _recipients.length; i++) {
-            recipientBalances[_recipients[i]] += recipientShare; // Update the recipient's balance in the mapping
+            recipientBalances[_recipients[i]] = recipientShare; // Update the recipient's balance in the mapping
         }
 
         emit UserAdded(msg.sender, _recipients, msg.value);
@@ -133,7 +139,7 @@ contract DigitalWill {
         return false;
     }
 
-      function isRecipientE(
+    function isRecipientE(
         address _user,
         address _recipient
     ) external view returns (bool) {

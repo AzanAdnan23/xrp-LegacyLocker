@@ -4,7 +4,7 @@ async function main() {
   const DContract = await ethers.getContractFactory("DigitalWill");
 
   const dContract = DContract.attach(
-    "0xDd3330863ecEa52a146f001f6330F2EA24931173"
+    "0xE899A0F80Efdb05ebD015E9312085BDD318D4086"
   );
 
   // let amount = ethers.utils.parseEther('5');
@@ -15,10 +15,10 @@ async function main() {
   //  console.log("Transection Hash",tx2.hash);
 
   const tx = await dContract.getRecipientBalance(
-    "0xF657E0B79c3b665Ad053866fb7634e3270F4f02F"
+    "0x83bac192f2fa774962a538D2ee300695f84eea6f"
   );
 
-  console.log("User info:", tx);
+  console.log(ethers.utils.formatEther(tx));
 
   console.log(typeof tx);
 }
