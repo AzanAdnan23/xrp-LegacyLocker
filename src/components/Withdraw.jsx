@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ethers } from "ethers";
 import DigitalWill from "../artifacts/contracts/DigitalWill.sol/DigitalWill";
 
@@ -29,6 +29,8 @@ function Withdraw() {
 
       const tx = await digitalWill.isRecipientE(parentAddress, accounts[0]);
       if (tx == true) {
+        alert(" Recipient Varified.....");
+
         setIsRecipient(true);
         setRecipientAddress(accounts[0]);
         setParentAddress(parentAddress);
@@ -57,6 +59,8 @@ function Withdraw() {
         let timeRemainingInDays = timeRemainingInWeeks * 7;
 
         setTimeRemaning(formatTime(timeRemainingInDays));
+      } else {
+        alert(" Recipient Not Varified.....");
       }
     } catch (error) {
       console.error("Error fetching user info:", error);
@@ -76,9 +80,9 @@ function Withdraw() {
     const tx = await digitalWill.withdraw(parentAddress);
     await tx.wait();
 
-    console.log(" withdrawal sucessfully: ", tx);
+    console.log(" withdrawal Successfully: ", tx);
 
-    alert(" withdrawal sucessfully..");
+    alert(" Withdrawal Successfully.....");
   };
 
   const handleParentChange = (e) => {

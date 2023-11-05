@@ -16,9 +16,9 @@ function PingContract() {
 
     const tx = await digitalWill.ping();
     await tx.wait();
-    console.log(" pinged sucessfull: ", tx);
+    console.log(" pinged Successfully: ", tx);
 
-    alert(" pinged sucessfull..");
+    alert(" Pinged Successfully....");
   };
 
   return (

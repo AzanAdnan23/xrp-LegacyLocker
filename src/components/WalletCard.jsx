@@ -7,92 +7,76 @@ const WalletCard = ({onConnect}) => {
   const [userBalance, setUserBalance] = useState(null);
   const [connButtonText, setConnButtonText] = useState('Connect Wallet');
 
-  const [metaMaskInstalled, setMetaMaskInstalled] = useState(false);
+  useEffect(() => {
+    async function detectProvider() {
+      const provider = await detectEthereumProvider();
 
-  async function detectProvider() {
-    const provider = await detectEthereumProvider();
-
-    if (provider) {
-      setMetaMaskInstalled(true);
-      startApp(provider);
-    } else {
-      setConnButtonText('Install MetaMask');
-      console.log('Please install MetaMask!');
-    }
-  }
-
-  function startApp(provider) {
-    if (provider !== window.ethereum) {
-      console.error('Do you have multiple wallets installed?');
-    }
-  }
-
-  const connectWalletHandler = () => {
-    if (metaMaskInstalled) {
-      // Connect Wallet logic
-      if (window.ethereum && window.ethereum.isMetaMask) {
-        console.log('MetaMask Here!');
-
-        window.ethereum
-          .request({ method: 'eth_requestAccounts' })
-          .then((result) => {
-            accountChangedHandler(result[0]);
-            setConnButtonText('Wallet Connected');
-            getAccountBalance(result[0]);
-            onConnect(); // Call the passed in prop here
-          })
-          .catch((error) => {
-            setErrorMessage(error.message);
-          });
+      if (provider) {
+        startApp(provider);
       } else {
-        console.log('Need to install MetaMask');
-        setErrorMessage('Please install MetaMask browser extension to interact');
+        setConnButtonText('Install MetaMask');
+        console.log('Please install MetaMask!');
+      }
+    }
+
+    function startApp(provider) {
+      if (provider !== window.ethereum) {
+        console.error('Do you have multiple wallets installed?');
+      }
+    }
+
+    detectProvider();
+  }, []);
+
+  const connectWalletHandler = async () => {
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        accountChangedHandler(accounts[0]);
+        setConnButtonText('Wallet Connected');
+        getAccountBalance(accounts[0]);
+        onConnect();
+      } catch (error) {
+        setErrorMessage(error.message);
       }
     } else {
-      if (connButtonText === 'Install MetaMask') {
-        // Redirect to the MetaMask website
-        window.location.href = 'https://metamask.io/';
-      }
+      console.log('Need to install MetaMask');
+      setErrorMessage('Please install MetaMask browser extension to interact');
     }
   };
 
   const accountChangedHandler = (newAccount) => {
     setDefaultAccount(newAccount);
-    getAccountBalance(newAccount.toString());
+    getAccountBalance(newAccount);
   };
 
-  const getAccountBalance = (account) => {
-    window.ethereum
-      .request({ method: 'eth_getBalance', params: [account, 'latest'] })
-      .then((balance) => {
-        setUserBalance(parseInt(balance, 16));
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
-  };
-
-  const chainChangedHandler = () => {
-    // Reload the page to avoid any errors with chain change mid-use of the application
-    window.location.reload();
+  const getAccountBalance = async (account) => {
+    try {
+      const balance = await window.ethereum.request({ method: 'eth_getBalance', params: [account, 'latest'] });
+      setUserBalance(parseInt(balance, 16));
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
   useEffect(() => {
-    // Add event listeners and cleanup
     if (window.ethereum) {
-      window.ethereum.on('accountsChanged', accountChangedHandler);
-      window.ethereum.on('chainChanged', chainChangedHandler);
+      window.ethereum.on('accountsChanged', (accounts) => {
+        accountChangedHandler(accounts[0]);
+        window.location.reload();
+      });
+
+      window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+      });
 
       return () => {
-        window.ethereum.removeListener('accountsChanged', accountChangedHandler);
-        window.ethereum.removeListener('chainChanged', chainChangedHandler);
+        if (window.ethereum.removeListener) {
+          window.ethereum.removeListener('accountsChanged', accountChangedHandler);
+          window.ethereum.removeListener('chainChanged', chainChangedHandler);
+        }
       };
     }
-  }, []);
-
-  useEffect(() => {
-    // Detect the Ethereum provider when the component mounts
-    detectProvider();
   }, []);
 
   return (

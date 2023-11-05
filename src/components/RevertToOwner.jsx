@@ -18,7 +18,7 @@ function RevertPayment() {
     await tx.wait();
     console.log(" payment reverted: ", tx);
 
-    alert(" payment revertedd to ur wallet..");
+    alert(" Payment Revertedd To your Wallet....");
   };
 
   return (

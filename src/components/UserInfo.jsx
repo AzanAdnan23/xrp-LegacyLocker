@@ -125,7 +125,12 @@ function Userinfo() {
       }
       timeString += minutes + " minute" + (minutes === 1 ? "" : "s");
     }
-
+    if (seconds > 0) {
+      if (timeString !== "") {
+        timeString += ", ";
+      }
+      timeString += seconds + " second" + (seconds === 1 ? "" : "s");
+    }
     return timeString;
   }
 }

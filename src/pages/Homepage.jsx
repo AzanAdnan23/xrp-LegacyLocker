@@ -78,67 +78,60 @@ function HomePage() {
             className="w-96 h-96 mr-36"
           />
         </div>
-
         <div className="px-36 mt-20">
-          <h4 className="text-2xl  font-sans mb-10  font-bold">
-            Benefits of LegacyLocker
-          </h4>
-          <ul>
-            <div className="flex font-sans gap-6 ">
-              <div>
-                <p className="mb-3 font-bold text-xl">
-                  Public and Decentralized:
-                </p>
-                <li className="text-lg text-gray-300">
-                  Your legacy, accessible to you and your heirs, secured on the
-                  blockchain, with no intermediaries.
-                </li>
-              </div>
 
-              <div>
-                <p className="mb-3 font-bold text-xl">Transparent:</p>
-                <li className="text-lg text-gray-300">
-                  Clear, open, and honest - our platform ensures you're always
-                  in the know about your digital assets.
-                </li>
-              </div>
 
-              <div>
-                <p className="mb-3 font-bold text-xl">No Hidden Charges:</p>
-                <li className="text-lg text-gray-300">
-                  We believe in upfront honesty; you won't find any hidden fees
-                  here.
-                </li>
-              </div>
-            </div>
+  <h4 className="text-3xl font-sans mb-10 font-bold">
+    Benefits of LegacyLocker
+  </h4>
 
-            <div className="flex font-sans gap-6 mt-10">
-              <div>
-                <p className="mb-3 font-bold text-xl"> Fully Automated:</p>
-                <li className="text-lg text-gray-300">
-                  Streamline your legacy planning effortlessly with our
-                  automated processes, saving you time and effort.
-                </li>
-              </div>
+  <ul className="flex flex-wrap justify-between gap-6">
+    <li className="flex-1">
+      <p className="mb-3 font-bold text-xl">Public and Decentralized:</p>
+      <ul className="text-lg text-gray-300">
+        <li>Your legacy, accessible to you and your heirs, secured on the blockchain, with no intermediaries.</li>
+      </ul>
+    </li>
 
-              <div>
-                <p className="mb-3 font-bold text-xl">Secure:</p>
-                <li className="text-lg text-gray-300">
-                  Your digital assets are locked down with the highest level of
-                  security, so you can rest easy knowing they're safe.
-                </li>
-              </div>
+    <li className="flex-1">
+      <p className="mb-3 font-bold text-xl">Transparent:</p>
+      <ul className="text-lg text-gray-300">
+        <li>Clear, open, and honest - our platform ensures you're always in the know about your digital assets.</li>
+      </ul>
+    </li>
 
-              <div>
-                <p className="mb-3 font-bold text-xl">Blockchain-Powered:</p>
-                <li className="text-lg text-gray-300">
-                  Embrace the future of wealth transfer with the robust security
-                  and reliability of blockchain technology.
-                </li>
-              </div>
-            </div>
-          </ul>
-        </div>
+    <li className="flex-1">
+      <p className="mb-3 font-bold text-xl">No Hidden Charges:</p>
+      <ul className="text-lg text-gray-300">
+        <li>We believe in upfront honesty; you won't find any hidden fees here.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul className="flex flex-wrap justify-between gap-6 mt-10">
+    <li className="flex-1">
+      <p className="mb-3 font-bold text-xl">Fully Automated:</p>
+      <ul className="text-lg text-gray-300">
+        <li>Streamline your legacy planning effortlessly with our automated processes, saving you time and effort.</li>
+      </ul>
+    </li>
+
+    <li className="flex-1">
+      <p className="mb-3 font-bold text-xl">Secure:</p>
+      <ul className="text-lg text-gray-300">
+        <li>Your digital assets are locked down with the highest level of security, so you can rest easy knowing they're safe.</li>
+      </ul>
+    </li>
+
+    <li className="flex-1">
+      <p className="mb-3 font-bold text-xl">Blockchain-Powered:</p>
+      <ul className="text-lg text-gray-300">
+        <li>Embrace the future of wealth transfer with the robust security and reliability of blockchain technology.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
 
         <div className="flex mt-36">
           <img
