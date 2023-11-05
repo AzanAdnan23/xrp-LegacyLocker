@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\Azan Adnan\\Documents\\XRP\\xrp-digital-will\\contracts\\DigitalWill.sol": {
+      "lastModificationDate": 1699190586050,
+      "contentHash": "98a9c30d76c29cde5f31228e1b1b5151",
+      "sourceName": "contracts/DigitalWill.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.19"
+      ],
+      "artifacts": [
+        "DigitalWill"
+      ]
+    }
+  }
+}
