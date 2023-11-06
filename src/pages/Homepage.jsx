@@ -3,7 +3,7 @@ import purpleImage from "/src/assets/home-purple.svg";
 import greenImage from "/src/assets/home-green.svg";
 
 import cryptoProfile from "/src/assets/undraw_crypto_portfolio_2jy5.svg";
-import nakamoto from "src/assets/undraw_nakamoto_-2-iv6.svg";
+import nakamoto from "/src/assets/undraw_nakamoto_-2-iv6.svg";
 import onlineTrans from "src/assets/undraw_online_transactions_-02-ka.svg";
 
 function HomePage() {
