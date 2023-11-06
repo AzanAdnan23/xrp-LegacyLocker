@@ -1,6 +1,8 @@
 import React from "react";
 import purpleImage from "/src/assets/home-purple.svg";
 import greenImage from "/src/assets/home-green.svg";
+
+import cryptoProfile from "/src/assets/undraw_crypto_portfolio_2jy5.svg";
 function HomePage() {
   return (
     <div
@@ -39,8 +41,10 @@ function HomePage() {
         </div>
 
         <div className="flex">
+
+        
           <img
-            src="/src/assets/undraw_crypto_portfolio_2jy5.svg"
+            src={cryptoProfile}
             alt="Description of Image"
             className="w-96 h-96 mt-14 ml-28"
           />

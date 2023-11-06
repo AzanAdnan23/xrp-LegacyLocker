@@ -2,4 +2,7 @@
     "rewrites":  [
       {"source": "/(.*)", "destination": "/"}
     ]
-  }
+}
+
+
+
